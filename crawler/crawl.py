@@ -1,0 +1,369 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+林语 · 文博行业新闻爬虫（GitHub Actions 每日运行）
+
+抓取公开新闻源 → 过滤（丑闻硬排除）→ 打分挑选 → 去重 →
+生成 news.json（供 Tavo「行业见闻」插件读取）和 digest.md（给 jiaying 看的日报存档）。
+
+设计原则（与世界书两线并行）：
+- 只做「行业见闻」：公开新闻，与他的个人项目无关。
+- 涉及他单位负面/丑闻的新闻一律硬排除，绝不进入 feed。
+- 唐三彩、院内项目类新闻只能作素材级（谈资），不标事件级。
+- 每日最多 2 条，事件级最多 1 条。
+
+仅使用 Python 标准库，无需 pip 安装。
+"""
+
+import hashlib
+import html
+import json
+import os
+import re
+import sys
+import urllib.request
+import urllib.error
+import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta, timezone
+
+CST = timezone(timedelta(hours=8))
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+FEED_PATH = os.path.join(ROOT, "news.json")
+DIGEST_PATH = os.path.join(ROOT, "digest.md")
+SEEN_PATH = os.path.join(HERE, "seen.json")
+
+UA = ("Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "
+      "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1")
+
+# ---------------------------------------------------------------- 配置
+
+# Google News 检索式（RSS）：覆盖他的单位、专业与行业
+GOOGLE_QUERIES = ["南京博物院", "文物修复", "考古发掘 文物", "文物保护 科技"]
+# 直抓源（政府/行业媒体，服务器渲染，最好努力，失败不影响整体）
+DIRECT_PAGES = [
+    ("国家文物局", "https://www.ncha.gov.cn"),
+    ("中国文物新闻网", "https://www.zgwwb.com.cn"),
+    ("中国文物新闻网", "https://www.zgwwb.com.cn/bwg/"),
+]
+
+FRESH_HOURS = 72          # 只把 72 小时内发布的新闻当作候选
+KEEP_DAYS = 4             # seen 记录保留天数（防重复注入）
+MAX_ITEMS = 2             # 每日 feed 条数上限
+MAX_EVENT_ITEMS = 1       # 其中事件级上限
+
+# 丑闻/负面硬排除：命中任一直接丢弃（尤其涉及他单位时绝不能进聊天）
+EXCLUDE_WORDS = [
+    "判刑", "倒卖", "疑案", "腐败", "受贿", "行贿", "举报", "问责", "违纪",
+    "违法", "被查", "落马", "丑闻", "流失", "追责", "双开", "留置", "贪污",
+    "渎职", "失职", "盗窃", "走私", "造假", "售假", "诈骗", "纠纷", "起诉",
+    "被告", "判决", "刑期", "有期徒刑", "调查组进驻",
+    "攻略", "人均", "自由行", "旅游线路", "网红打卡地",
+]
+
+# 主题闸门：标题必须至少命中一个专业词，纯地名命中的旅游/生活资讯进不来
+GATE_WORDS = ["文物", "考古", "修复", "博物馆", "博物院", "遗址", "发掘",
+              "展览", "特展", "出土", "古籍", "书画", "陶瓷", "藏品", "文保"]
+
+# 正面相关性打分（标题命中）
+SCORE_WORDS = {
+    "文物修复": 3, "保护修复": 3, "修复": 2,
+    "考古": 3, "发掘": 3, "遗址": 3, "出土": 2,
+    "南京博物院": 3, "南博": 2,
+    "展览": 2, "特展": 2, "开展": 1, "博物馆": 1,
+    "预防性保护": 2, "科技保护": 2, "检测": 1,
+    "陶瓷": 1, "青花瓷": 1, "书画": 1, "古籍": 1, "江苏": 1, "南京": 1,
+}
+
+# 事件级触发：考古现场 + 人事调动语境
+EVENT_PLACE_WORDS = ["考古", "发掘", "遗址", "工地"]
+EVENT_ACTION_WORDS = ["支援", "调动", "派", "现场", "抢救性", "领队", "队员"]
+# 只能作素材、且要提示「不是他的项目」的词
+PROJECT_SENSITIVE_WORDS = ["唐三彩", "结项", "立项", "课题", "项目验收"]
+
+# ---------------------------------------------------------------- 工具
+
+def now_cst():
+    return datetime.now(CST)
+
+
+def fetch(url, retries=3, timeout=25):
+    last = None
+    for i in range(retries):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                raw = r.read()
+            for enc in ("utf-8", "gb18030"):
+                try:
+                    return raw.decode(enc)
+                except UnicodeDecodeError:
+                    continue
+            return raw.decode("utf-8", "ignore")
+        except Exception as e:  # 单个源失败不中断整体
+            last = e
+    print(f"[warn] fetch failed: {url} ({last})", file=sys.stderr)
+    return None
+
+
+def clean_text(s, limit=None):
+    s = html.unescape(s or "")
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    if limit and len(s) > limit:
+        s = s[:limit].rstrip("，。；、 ") + "…"
+    return s
+
+
+def norm_title(t):
+    return re.sub(r"[\s\W]+", "", t or "").lower()
+
+
+def item_id(title):
+    return hashlib.md5(norm_title(title).encode("utf-8")).hexdigest()[:12]
+
+
+def parse_rfc822(s):
+    from email.utils import parsedate_to_datetime
+    try:
+        dt = parsedate_to_datetime(s)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(CST)
+    except Exception:
+        return None
+
+# ---------------------------------------------------------------- 来源
+
+def from_google_news():
+    out = []
+    for q in GOOGLE_QUERIES:
+        url = ("https://news.google.com/rss/search?q="
+               + urllib.request.quote(q)
+               + "&hl=zh-CN&gl=CN&ceid=CN:zh-Hans")
+        xml = fetch(url, retries=2)
+        if not xml:
+            continue
+        try:
+            root = ET.fromstring(xml)
+        except ET.ParseError:
+            continue
+        for it in root.iter("item"):
+            title = it.findtext("title") or ""
+            src_el = it.find("source")
+            source = src_el.text if src_el is not None and src_el.text else "新闻"
+            title = re.sub(r"\s*-\s*[^-]+$", "", title).strip()  # 去掉尾部「- 来源」
+            pub = parse_rfc822(it.findtext("pubDate") or "")
+            desc = clean_text(it.findtext("description") or "", 90)
+            # Google 的 description 常是同题多源罗列：以标题开头、太短的都弃用，
+            # 只留像句子的真实摘要
+            if desc.startswith(title[:10]) or len(desc) < 25:
+                desc = ""
+            out.append({
+                "title": title, "source": source,
+                "date": pub.strftime("%Y-%m-%d") if pub else "",
+                "pub_dt": pub, "summary": desc,
+                "url": it.findtext("link") or "",
+            })
+    return out
+
+
+def extract_article_summary(url):
+    page = fetch(url, retries=2, timeout=20)
+    if not page:
+        return ""
+    page = re.sub(r"<script.*?</script>|<style.*?</style>", " ", page, flags=re.S)
+    paras = re.findall(r"<p[^>]*>(.*?)</p>", page, flags=re.S)
+    for p in paras:
+        t = clean_text(p)
+        if len(t) >= 40 and not any(k in t for k in ("责任编辑", "版权所有", "ICP", "分享到")):
+            return clean_text(t, 100)
+    return ""
+
+
+def from_direct():
+    out = []
+    art_re = re.compile(
+        r'href="(?P<href>(?:https?://www\.ncha\.gov\.cn)?\.?/art/\d{4}/\d{1,2}/\d{1,2}/art_\d+_\d+\.html)"[^>]*>(?P<t>[^<]{6,80})</a>')
+    ww_re = re.compile(
+        r'href="(?P<href>https?://www\.zgwwb\.com\.cn/(?:news|bwg)/\d{4}-\d{2}/\d{2}/content_\d+\.htm)"[^>]*>(?P<t>[^<]{6,80})</a>')
+    for source, page_url in DIRECT_PAGES:
+        page = fetch(page_url)
+        if not page:
+            continue
+        seen_here = set()
+        for regex, base in ((art_re, "https://www.ncha.gov.cn"), (ww_re, "")):
+            for m in regex.finditer(page):
+                href = m.group("href")
+                if href.startswith("."):
+                    href = base + href[1:]
+                elif href.startswith("/"):
+                    href = base + href
+                if href in seen_here:
+                    continue
+                seen_here.add(href)
+                dm = re.search(r"/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/", href)
+                pub = None
+                if dm:
+                    pub = datetime(int(dm.group(1)), int(dm.group(2)), int(dm.group(3)), tzinfo=CST)
+                out.append({
+                    "title": clean_text(m.group("t")), "source": source,
+                    "date": pub.strftime("%Y-%m-%d") if pub else "",
+                    "pub_dt": pub, "summary": "", "url": href,
+                    "_need_summary": True,
+                })
+    return out
+
+# ---------------------------------------------------------------- 处理
+
+ANCHOR_WORDS = ["博物馆", "博物院", "文物局", "中国", "江苏", "南京"]
+
+
+def score_and_classify(it):
+    title = it["title"]
+    if any(w in title for w in EXCLUDE_WORDS):
+        return None  # 硬排除
+    if not any(w in title for w in GATE_WORDS):
+        return None  # 主题闸门
+    score = sum(v for w, v in SCORE_WORDS.items() if w in title)
+    if any(w in title for w in ANCHOR_WORDS):
+        score += 2  # 国内/文博机构锚点加权，避免境外考古新闻挤占名额
+    if not re.search(r"[\u4e00-\u9fff]", it.get("source", "")):
+        score -= 4  # 来源为境外媒体（无中文名）大幅降权
+    sensitive = any(w in title for w in PROJECT_SENSITIVE_WORDS)
+    level = "material"
+    if (any(w in title for w in EVENT_PLACE_WORDS)
+            and any(w in title for w in EVENT_ACTION_WORDS)
+            and not sensitive):
+        level = "event"
+    return score, level, sensitive
+
+
+def load_seen():
+    try:
+        with open(SEEN_PATH, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def save_seen(seen):
+    with open(SEEN_PATH, "w", encoding="utf-8") as f:
+        json.dump(seen, f, ensure_ascii=False, indent=1)
+
+
+def main():
+    today = now_cst()
+    fresh_cutoff = today - timedelta(hours=FRESH_HOURS)
+
+    candidates = from_google_news() + from_direct()
+
+    # 新鲜度 + 标题去重
+    uniq = {}
+    for it in candidates:
+        if not it["title"]:
+            continue
+        if it["pub_dt"] is not None and it["pub_dt"] < fresh_cutoff:
+            continue
+        uniq.setdefault(item_id(it["title"]), it)
+    candidates = list(uniq.values())
+
+    # 打分分类
+    scored = []
+    for it in candidates:
+        r = score_and_classify(it)
+        if r is None:
+            continue
+        it["score"], it["level"], it["sensitive"] = r
+        if it["score"] < 3:
+            continue
+        scored.append(it)
+    scored.sort(key=lambda x: (x["level"] == "event", x["score"],
+                               x["pub_dt"] or datetime.min.replace(tzinfo=CST)),
+                reverse=True)
+
+    # 去重（seen）：已注入过的永不再选
+    seen = load_seen()
+    seen = {k: v for k, v in seen.items()
+            if (today.date() - datetime.fromisoformat(v).date()).days < KEEP_DAYS}
+    fresh_items = [it for it in scored if item_id(it["title"]) not in seen]
+
+    # 挑选：事件级优先占 1 位，总数 ≤ MAX_ITEMS；
+    # 同一事件的多源报道只留一条（标题最长公共子串 ≥6 字视为同题）
+    def same_story(a, b):
+        a, b = norm_title(a), norm_title(b)
+        best = 0
+        prev = [0] * (len(b) + 1)
+        for i in range(1, len(a) + 1):
+            cur = [0] * (len(b) + 1)
+            for j in range(1, len(b) + 1):
+                if a[i - 1] == b[j - 1]:
+                    cur[j] = prev[j - 1] + 1
+                    best = max(best, cur[j])
+            prev = cur
+        return best >= 6
+
+    picks, events = [], 0
+    for it in fresh_items:
+        if len(picks) >= MAX_ITEMS:
+            break
+        if it["level"] == "event":
+            if events >= MAX_EVENT_ITEMS:
+                continue
+            events += 1
+        if any(same_story(it["title"], p["title"]) for p in picks):
+            continue
+        picks.append(it)
+
+    # 为直抓源补摘要（最多补 4 篇，省时间）
+    n = 0
+    for it in picks:
+        if it.get("_need_summary") and n < 4:
+            it["summary"] = extract_article_summary(it["url"])
+            n += 1
+
+    feed_items = []
+    for it in picks:
+        iid = item_id(it["title"])
+        seen[iid] = today.strftime("%Y-%m-%d")
+        feed_items.append({
+            "id": iid,
+            "title": it["title"],
+            "source": it["source"],
+            "date": it["date"] or today.strftime("%Y-%m-%d"),
+            "summary": it.get("summary", ""),
+            "level": it["level"],           # material | event
+            "sensitive": it["sensitive"],   # 涉及唐三彩/院内项目：仅作谈资
+            "url": it["url"],
+        })
+    save_seen(seen)
+
+    feed = {
+        "generated_at": today.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
+        "date": today.strftime("%Y-%m-%d"),
+        "items": feed_items,
+    }
+    with open(FEED_PATH, "w", encoding="utf-8") as f:
+        json.dump(feed, f, ensure_ascii=False, indent=2)
+
+    # digest 存档（给 jiaying 看；没有新条目也记一行，方便确认在跑）
+    lines = [f"\n## {feed['date']}\n"]
+    if feed_items:
+        for it in feed_items:
+            tag = "事件级" if it["level"] == "event" else "素材级"
+            lines.append(f"- [{tag}] 《{it['title']}》（{it['source']}，{it['date']}）"
+                         + (f" — {it['summary']}" if it["summary"] else "")
+                         + f"  {it['url']}")
+    else:
+        lines.append("- （今日无符合条件的新条目）")
+    need_header = (not os.path.exists(DIGEST_PATH)) or os.path.getsize(DIGEST_PATH) == 0
+    with open(DIGEST_PATH, "a", encoding="utf-8") as f:
+        if need_header:
+            f.write("# 文博行业日报存档\n")
+        f.write("\n".join(lines) + "\n")
+
+    print(json.dumps(feed, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()
