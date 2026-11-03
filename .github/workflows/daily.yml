@@ -33,5 +33,5 @@ jobs:
             echo "no changes"
           else
             git commit -m "daily news $(date -u +%F)"
-            git push
+            git push origin HEAD:main
           fi
