@@ -39,11 +39,9 @@ UA = ("Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "
 
 # ---------------------------------------------------------------- 配置
 
-# Google News 检索式（RSS）：按林语的单位、专业品类、技术方向与兼职身份定制
-# （北大考古文博出身；南博文物科技保护中心；无机质文物——陶瓷/青铜/玉石——
-#   病害机理与保护修复；XRF/SEM-EDS 科技检测；预防性保护与展陈环境监测；
-#   南京市文物局专家库；金陵图书馆纸质文献保护技术顾问）
-GOOGLE_QUERIES = [
+# 搜索词住在仓库根目录的 topics.txt 里（jiaying 可以自己在网页上改），
+# 分 [他的行业] 和 [她的近况] 两组。下面是 topics.txt 缺失时的内置兜底。
+DEFAULT_WORK_QUERIES = [
     "南京博物院",            # 单位本身
     "文物修复",              # 大类
     "青花瓷 文物",           # 核心品类（硕士论文与在研数据库方向）
@@ -55,6 +53,28 @@ GOOGLE_QUERIES = [
     "古籍 纸质文献 保护",    # 金陵图书馆顾问线
     "博物馆 特展 文物",      # 展陈线
 ]
+TOPICS_PATH = os.path.join(ROOT, "topics.txt")
+
+
+def load_topics():
+    groups = {"work": [], "life": []}
+    cur = "work"
+    try:
+        with open(TOPICS_PATH, encoding="utf-8") as f:
+            for raw in f:
+                line = raw.strip()
+                if not line or line.startswith("#"):
+                    continue
+                if line.startswith("["):
+                    cur = ("life" if ("近况" in line or "life" in line.lower())
+                           else "work")
+                    continue
+                groups[cur].append(line)
+    except Exception:
+        pass
+    if not groups["work"]:
+        groups["work"] = list(DEFAULT_WORK_QUERIES)
+    return groups
 # 直抓源（政府/行业媒体，服务器渲染，最好努力，失败不影响整体）
 DIRECT_PAGES = [
     ("国家文物局", "https://www.ncha.gov.cn"),
@@ -67,7 +87,15 @@ KEEP_DAYS = 4             # seen 记录保留天数（防重复注入）
 MAX_ITEMS = 3             # 每日 feed 条数上限
 MAX_EVENT_ITEMS = 1       # 其中事件级上限
 MAX_NEGATIVE_ITEMS = 1    # 其中负面大新闻上限
+MAX_LIFE_ITEMS = 1        # 其中「她的近况」上限
 NEGATIVE_KEEP_DAYS = 7    # 同一负面题材的冷却天数（后续进展不天天刷屏）
+
+# 「她的近况」一组的话题不走文博闸门，按正经新闻把关：
+# 国内大媒体来源加权，教育/考试类锚点加权，负面词表另加考试作弊类
+LIFE_MAJOR_SOURCES = ["人民", "新华", "央视", "中央", "中国新闻", "澎湃",
+                      "日报", "晚报", "光明", "教育报"]
+LIFE_ANCHOR_WORDS = ["考研", "研究生", "考试", "招生", "教育"]
+LIFE_SCANDAL_WORDS = ["抄袭", "作弊", "泄题"]
 
 # 垃圾/无关信息硬排除：命中任一直接丢弃
 SPAM_EXCLUDE_WORDS = [
@@ -162,9 +190,9 @@ def parse_rfc822(s):
 
 # ---------------------------------------------------------------- 来源
 
-def from_google_news():
+def from_google_news(queries, group):
     out = []
-    for q in GOOGLE_QUERIES:
+    for q in queries:
         url = ("https://news.google.com/rss/search?q="
                + urllib.request.quote(q)
                + "&hl=zh-CN&gl=CN&ceid=CN:zh-Hans")
@@ -191,6 +219,7 @@ def from_google_news():
                 "date": pub.strftime("%Y-%m-%d") if pub else "",
                 "pub_dt": pub, "summary": desc,
                 "url": it.findtext("link") or "",
+                "_group": group,
             })
     return out
 
@@ -237,7 +266,7 @@ def from_direct():
                     "title": clean_text(m.group("t")), "source": source,
                     "date": pub.strftime("%Y-%m-%d") if pub else "",
                     "pub_dt": pub, "summary": "", "url": href,
-                    "_need_summary": True,
+                    "_need_summary": True, "_group": "work",
                 })
     return out
 
@@ -250,12 +279,30 @@ def score_and_classify(it):
     title = it["title"]
     if any(w in title for w in SPAM_EXCLUDE_WORDS):
         return None  # 垃圾信息硬排除
+    domestic = bool(re.search(r"[\u4e00-\u9fff]", it.get("source", "")))
+    if it.get("_group") == "life":
+        # 「她的近况」：不走文博闸门，只收国内正经新闻来源；
+        # 大媒体 + 话题锚点加分，负面（含考试作弊类）单独归类
+        if not domestic:
+            return None
+        # 单个学校的招生简章对她没意义，全国性的才留
+        if ("招生简章" in title or "招生章程" in title) and "全国" not in title:
+            return None
+        score = 2
+        if any(s in it.get("source", "") for s in LIFE_MAJOR_SOURCES):
+            score += 2
+        if any(w in title for w in LIFE_ANCHOR_WORDS):
+            score += 1
+        if score < 4:
+            return None
+        neg = (any(w in title for w in SCANDAL_WORDS + LIFE_SCANDAL_WORDS)
+               and not any(w in title for w in RECOVERY_WORDS))
+        return score, ("negative" if neg else "material"), neg
     if not any(w in title for w in GATE_WORDS):
         return None  # 主题闸门
     score = sum(v for w, v in SCORE_WORDS.items() if w in title)
     if any(w in title for w in ANCHOR_WORDS):
         score += 2  # 国内/文博机构锚点加权，避免境外考古新闻挤占名额
-    domestic = bool(re.search(r"[\u4e00-\u9fff]", it.get("source", "")))
     if not domestic:
         score -= 4  # 来源为境外媒体（无中文名）大幅降权
     # 负面/丑闻单独把关：只收国内媒体报道、相关性足够高的「大新闻」，
@@ -291,7 +338,10 @@ def main():
     today = now_cst()
     fresh_cutoff = today - timedelta(hours=FRESH_HOURS)
 
-    candidates = from_google_news() + from_direct()
+    topics = load_topics()
+    candidates = (from_google_news(topics["work"], "work")
+                  + from_google_news(topics["life"], "life")
+                  + from_direct())
 
     # 新鲜度 + 标题去重
     uniq = {}
@@ -341,7 +391,7 @@ def main():
             prev = cur
         return best >= 6
 
-    picks, events, negatives = [], 0, 0
+    picks, events, negatives, lifes = [], 0, 0, 0
     for it in fresh_items:
         if len(picks) >= MAX_ITEMS:
             break
@@ -349,6 +399,10 @@ def main():
             if events >= MAX_EVENT_ITEMS:
                 continue
             events += 1
+        if it.get("_group") == "life":
+            if lifes >= MAX_LIFE_ITEMS:
+                continue
+            lifes += 1
         if it["level"] == "negative":
             if negatives >= MAX_NEGATIVE_ITEMS:
                 continue
@@ -382,6 +436,7 @@ def main():
             "summary": it.get("summary", ""),
             "level": it["level"],           # material | event | negative
             "sensitive": it["sensitive"],   # 涉及唐三彩/院内项目：仅作谈资
+            "group": it.get("_group", "work"),  # work 他的行业 | life 她的近况
             "url": it["url"],
         })
     save_seen({**seen, "__neg__": neg_history})
@@ -400,6 +455,8 @@ def main():
         for it in feed_items:
             tag = {"event": "事件级", "negative": "负面大新闻"}.get(
                 it["level"], "素材级")
+            if it.get("group") == "life":
+                tag += "·她的近况"
             lines.append(f"- [{tag}] 《{it['title']}》（{it['source']}，{it['date']}）"
                          + (f" — {it['summary']}" if it["summary"] else "")
                          + f"  {it['url']}")
