@@ -3,14 +3,15 @@
 """
 林语 · 文博行业新闻爬虫（GitHub Actions 每日运行）
 
-抓取公开新闻源 → 过滤（丑闻硬排除）→ 打分挑选 → 去重 →
+抓取公开新闻源 → 过滤（垃圾信息硬排除、负面新闻单独分类）→ 打分挑选 → 去重 →
 生成 news.json（供 Tavo「行业见闻」插件读取）和 digest.md（给 jiaying 看的日报存档）。
 
 设计原则（与世界书两线并行）：
 - 只做「行业见闻」：公开新闻，与他的个人项目无关。
-- 涉及他单位负面/丑闻的新闻一律硬排除，绝不进入 feed。
+- 负面/丑闻新闻单独一类（negative）：只收国内媒体报道的公开大新闻，
+  每天最多 1 条，强制敏感标记，同一题材 7 天内不重复。
 - 唐三彩、院内项目类新闻只能作素材级（谈资），不标事件级。
-- 每日最多 2 条，事件级最多 1 条。
+- 每日最多 3 条，事件级最多 1 条。
 
 仅使用 Python 标准库，无需 pip 安装。
 """
@@ -38,8 +39,22 @@ UA = ("Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "
 
 # ---------------------------------------------------------------- 配置
 
-# Google News 检索式（RSS）：覆盖他的单位、专业与行业
-GOOGLE_QUERIES = ["南京博物院", "文物修复", "考古发掘 文物", "文物保护 科技"]
+# Google News 检索式（RSS）：按林语的单位、专业品类、技术方向与兼职身份定制
+# （北大考古文博出身；南博文物科技保护中心；无机质文物——陶瓷/青铜/玉石——
+#   病害机理与保护修复；XRF/SEM-EDS 科技检测；预防性保护与展陈环境监测；
+#   南京市文物局专家库；金陵图书馆纸质文献保护技术顾问）
+GOOGLE_QUERIES = [
+    "南京博物院",            # 单位本身
+    "文物修复",              # 大类
+    "青花瓷 文物",           # 核心品类（硕士论文与在研数据库方向）
+    "陶瓷文物 保护修复",     # 品类扩展
+    "青铜器 修复保护",       # 品类扩展
+    "文物 科技检测",         # 技术方向（无损检测/成分分析）
+    "文物 预防性保护",       # 工作内容（保存环境/微环境）
+    "考古发掘 文物",         # 出土文物保护与外派支援线
+    "古籍 纸质文献 保护",    # 金陵图书馆顾问线
+    "博物馆 特展 文物",      # 展陈线
+]
 # 直抓源（政府/行业媒体，服务器渲染，最好努力，失败不影响整体）
 DIRECT_PAGES = [
     ("国家文物局", "https://www.ncha.gov.cn"),
@@ -49,30 +64,42 @@ DIRECT_PAGES = [
 
 FRESH_HOURS = 72          # 只把 72 小时内发布的新闻当作候选
 KEEP_DAYS = 4             # seen 记录保留天数（防重复注入）
-MAX_ITEMS = 2             # 每日 feed 条数上限
+MAX_ITEMS = 3             # 每日 feed 条数上限
 MAX_EVENT_ITEMS = 1       # 其中事件级上限
+MAX_NEGATIVE_ITEMS = 1    # 其中负面大新闻上限
+NEGATIVE_KEEP_DAYS = 7    # 同一负面题材的冷却天数（后续进展不天天刷屏）
 
-# 丑闻/负面硬排除：命中任一直接丢弃（尤其涉及他单位时绝不能进聊天）
-EXCLUDE_WORDS = [
-    "判刑", "倒卖", "疑案", "腐败", "受贿", "行贿", "举报", "问责", "违纪",
-    "违法", "被查", "落马", "丑闻", "流失", "追责", "双开", "留置", "贪污",
-    "渎职", "失职", "盗窃", "走私", "造假", "售假", "诈骗", "纠纷", "起诉",
-    "被告", "判决", "刑期", "有期徒刑", "调查组进驻",
+# 垃圾/无关信息硬排除：命中任一直接丢弃
+SPAM_EXCLUDE_WORDS = [
     "攻略", "人均", "自由行", "旅游线路", "网红打卡地",
 ]
 
+# 负面/丑闻词：命中不再直接丢弃，而是归入 negative 类单独把关
+# （只收大新闻、每天至多 1 条，见 score_and_classify）
+SCANDAL_WORDS = [
+    "判刑", "倒卖", "疑案", "腐败", "受贿", "行贿", "举报", "问责", "违纪",
+    "违法", "被查", "落马", "丑闻", "流失", "追责", "双开", "留置", "贪污",
+    "渎职", "失职", "盗窃", "走私", "造假", "售假", "诈骗", "刑期",
+    "有期徒刑", "调查组进驻",
+]
+# 「流失文物回归」类是正面新闻，命中这些词时不按负面处理
+RECOVERY_WORDS = ["回归", "追索", "返还", "回国", "重聚"]
+
 # 主题闸门：标题必须至少命中一个专业词，纯地名命中的旅游/生活资讯进不来
 GATE_WORDS = ["文物", "考古", "修复", "博物馆", "博物院", "遗址", "发掘",
-              "展览", "特展", "出土", "古籍", "书画", "陶瓷", "藏品", "文保"]
+              "展览", "特展", "出土", "古籍", "书画", "陶瓷", "藏品", "文保",
+              "青铜", "玉石", "瓷器", "纸质", "文献", "微环境", "釉"]
 
 # 正面相关性打分（标题命中）
 SCORE_WORDS = {
     "文物修复": 3, "保护修复": 3, "修复": 2,
-    "考古": 3, "发掘": 3, "遗址": 3, "出土": 2,
-    "南京博物院": 3, "南博": 2,
+    "考古": 3, "发掘": 3, "遗址": 3, "出土": 2, "出土文物": 2,
+    "南京博物院": 3, "南博": 2, "南京市文物局": 2, "金陵图书馆": 2,
     "展览": 2, "特展": 2, "开展": 1, "博物馆": 1,
-    "预防性保护": 2, "科技保护": 2, "检测": 1,
-    "陶瓷": 1, "青花瓷": 1, "书画": 1, "古籍": 1, "江苏": 1, "南京": 1,
+    "预防性保护": 2, "科技保护": 2, "科技检测": 2, "无损检测": 2,
+    "检测": 1, "微环境": 2,
+    "陶瓷": 1, "青花瓷": 1, "青铜": 2, "书画": 1, "古籍": 1,
+    "纸质文献": 2, "文献保护": 2, "江苏": 1, "南京": 1,
 }
 
 # 事件级触发：考古现场 + 人事调动语境
@@ -221,15 +248,23 @@ ANCHOR_WORDS = ["博物馆", "博物院", "文物局", "中国", "江苏", "南�
 
 def score_and_classify(it):
     title = it["title"]
-    if any(w in title for w in EXCLUDE_WORDS):
-        return None  # 硬排除
+    if any(w in title for w in SPAM_EXCLUDE_WORDS):
+        return None  # 垃圾信息硬排除
     if not any(w in title for w in GATE_WORDS):
         return None  # 主题闸门
     score = sum(v for w, v in SCORE_WORDS.items() if w in title)
     if any(w in title for w in ANCHOR_WORDS):
         score += 2  # 国内/文博机构锚点加权，避免境外考古新闻挤占名额
-    if not re.search(r"[\u4e00-\u9fff]", it.get("source", "")):
+    domestic = bool(re.search(r"[\u4e00-\u9fff]", it.get("source", "")))
+    if not domestic:
         score -= 4  # 来源为境外媒体（无中文名）大幅降权
+    # 负面/丑闻单独把关：只收国内媒体报道、相关性足够高的「大新闻」，
+    # 强制敏感标记；不够格的负面消息仍然丢弃
+    if (any(w in title for w in SCANDAL_WORDS)
+            and not any(w in title for w in RECOVERY_WORDS)):
+        if domestic and score >= 5:
+            return score, "negative", True
+        return None
     sensitive = any(w in title for w in PROJECT_SENSITIVE_WORDS)
     level = "material"
     if (any(w in title for w in EVENT_PLACE_WORDS)
@@ -282,10 +317,13 @@ def main():
                                x["pub_dt"] or datetime.min.replace(tzinfo=CST)),
                 reverse=True)
 
-    # 去重（seen）：已注入过的永不再选
-    seen = load_seen()
-    seen = {k: v for k, v in seen.items()
-            if (today.date() - datetime.fromisoformat(v).date()).days < KEEP_DAYS}
+    # 去重（seen）：已注入过的永不再选；负面题材另有 7 天冷却记录
+    raw_seen = load_seen()
+    neg_history = [e for e in raw_seen.get("__neg__", [])
+                   if (today.date() - datetime.fromisoformat(e["d"]).date()).days
+                   < NEGATIVE_KEEP_DAYS]
+    seen = {k: v for k, v in raw_seen.items() if k != "__neg__"
+            and (today.date() - datetime.fromisoformat(v).date()).days < KEEP_DAYS}
     fresh_items = [it for it in scored if item_id(it["title"]) not in seen]
 
     # 挑选：事件级优先占 1 位，总数 ≤ MAX_ITEMS；
@@ -303,7 +341,7 @@ def main():
             prev = cur
         return best >= 6
 
-    picks, events = [], 0
+    picks, events, negatives = [], 0, 0
     for it in fresh_items:
         if len(picks) >= MAX_ITEMS:
             break
@@ -311,6 +349,13 @@ def main():
             if events >= MAX_EVENT_ITEMS:
                 continue
             events += 1
+        if it["level"] == "negative":
+            if negatives >= MAX_NEGATIVE_ITEMS:
+                continue
+            # 同一负面题材在冷却期内不再选（后续进展不天天刷屏）
+            if any(same_story(it["title"], e["t"]) for e in neg_history):
+                continue
+            negatives += 1
         if any(same_story(it["title"], p["title"]) for p in picks):
             continue
         picks.append(it)
@@ -326,17 +371,20 @@ def main():
     for it in picks:
         iid = item_id(it["title"])
         seen[iid] = today.strftime("%Y-%m-%d")
+        if it["level"] == "negative":
+            neg_history.append({"t": it["title"],
+                                "d": today.strftime("%Y-%m-%d")})
         feed_items.append({
             "id": iid,
             "title": it["title"],
             "source": it["source"],
             "date": it["date"] or today.strftime("%Y-%m-%d"),
             "summary": it.get("summary", ""),
-            "level": it["level"],           # material | event
+            "level": it["level"],           # material | event | negative
             "sensitive": it["sensitive"],   # 涉及唐三彩/院内项目：仅作谈资
             "url": it["url"],
         })
-    save_seen(seen)
+    save_seen({**seen, "__neg__": neg_history})
 
     feed = {
         "generated_at": today.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
@@ -350,7 +398,8 @@ def main():
     lines = [f"\n## {feed['date']}\n"]
     if feed_items:
         for it in feed_items:
-            tag = "事件级" if it["level"] == "event" else "素材级"
+            tag = {"event": "事件级", "negative": "负面大新闻"}.get(
+                it["level"], "素材级")
             lines.append(f"- [{tag}] 《{it['title']}》（{it['source']}，{it['date']}）"
                          + (f" — {it['summary']}" if it["summary"] else "")
                          + f"  {it['url']}")
