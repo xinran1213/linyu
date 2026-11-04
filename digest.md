@@ -15,3 +15,7 @@
 - [素材级] 《业内专家为黑龙江纺织品文物修复青年从业者支招》（中国新闻网，2026-11-01）  https://news.google.com/rss/articles/CBMib0FVX3lxTE10R2pOcXNjWmNLN1IzVXppZFlfS1J0TUVFclZQYl9DZlVxMXB1OGhOQWRJRWFoZUdXellpb0Q5Ynp6QXRXQUNUa01tWnZCbmJBU2MxYnpfTXlBUkxFa19kSDVYbHUxSG5pSEh3cktBQQ?oc=5
 - [素材级] 《江苏昆山：“百戏聚首，国宝归源——圆明园兽首暨海外回流文物特展”启幕》（光明网，2026-10-31）  https://news.google.com/rss/articles/CBMiZkFVX3lxTFByVlNOMlRfekR6SGpuOU9pVWFHaGFlMlk0ZG9TNXBEcnpESUV0WHhkb0RfbG1Sa3hMMExHeU9uWnZ0SkpYandyU0FuRmtXZVViT2FoNDZ4bWp2MmY1VUwtOGM4Z0JLdw?oc=5
 - [素材级] 《获国际认可！“BesTV上海博物馆”获亚广联奖》（上观新闻，2026-11-02）  https://news.google.com/rss/articles/CBMiXEFVX3lxTFBIMjBuNTNYWTg2MTRjVVRDM2tId3FuNEk2aGxDcENVVkJUTFdjZ1JlMDQ5SFk2SENld1JLZVhBbDB3NEdqeENmQVJpTGJ1bkU1Y1R3SFhjdWQyaF9n?oc=5
+
+## 2026-11-04
+
+- [素材级] 《中国长城博物馆焕新开放，汇聚文物700余件》（京报网，2026-11-02）  https://news.google.com/rss/articles/CBMiXkFVX3lxTE4yQ0dnT2ExRS02d2RHUjFNaTJWWkJGRW05NVVHbktYWkxUMEFobWk2YkNvTUdfWVVhXzJPd2lSZ0RQb1dEdzExNnNWNHdIeW9mcklxdGpmLU8xN01PbGc?oc=5
