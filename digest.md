@@ -19,3 +19,7 @@
 ## 2026-11-04
 
 - [素材级] 《中国长城博物馆焕新开放，汇聚文物700余件》（京报网，2026-11-02）  https://news.google.com/rss/articles/CBMiXkFVX3lxTE4yQ0dnT2ExRS02d2RHUjFNaTJWWkJGRW05NVVHbktYWkxUMEFobWk2YkNvTUdfWVVhXzJPd2lSZ0RQb1dEdzExNnNWNHdIeW9mcklxdGpmLU8xN01PbGc?oc=5
+
+## 2026-11-05
+
+- [素材级] 《每年1.81亿元财政补助，保障我省150余家博物馆和纪念馆免费开放》（每日甘肃网，2026-11-04）  https://news.google.com/rss/articles/CBMic0FVX3lxTE5RTm5xZVZRcHgxaDIzS0FSLU5RQzhJSUhjYy15b2xWQ3ZaWEtUSlRpVXNXVHlIR2VPT3pUYUFtYmNrNkp0c2xQUEkyY2drbHk1LU1sX0ktMmljTUszUE1hemI3OE16dmpaWHRqSExrQVZyNUE?oc=5
