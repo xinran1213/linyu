@@ -23,3 +23,7 @@
 ## 2026-11-05
 
 - [素材级] 《每年1.81亿元财政补助，保障我省150余家博物馆和纪念馆免费开放》（每日甘肃网，2026-11-04）  https://news.google.com/rss/articles/CBMic0FVX3lxTE5RTm5xZVZRcHgxaDIzS0FSLU5RQzhJSUhjYy15b2xWQ3ZaWEtUSlRpVXNXVHlIR2VPT3pUYUFtYmNrNkp0c2xQUEkyY2drbHk1LU1sX0ktMmljTUszUE1hemI3OE16dmpaWHRqSExrQVZyNUE?oc=5
+
+## 2026-11-06
+
+- [素材级] 《第63届亚广联奖揭晓 “BesTV上海博物馆”获数字媒体类特别推荐奖》（流媒体网，2026-11-05）  https://news.google.com/rss/articles/CBMia0FVX3lxTE5JUEFhc0ZEMm5ueEpfaS1PYXR4QzlWS1VWODI4Y1pkRFpjblhUcDF4b1dWTldPWVZIMlRVVm5jek1penVMNkVEc1JPNWZ1ZjJPYnRwYTIyTm1FQ3B5emxmUjVOWHhrWWJzcFI0?oc=5
