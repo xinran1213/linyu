@@ -27,3 +27,7 @@
 ## 2026-11-06
 
 - [素材级] 《第63届亚广联奖揭晓 “BesTV上海博物馆”获数字媒体类特别推荐奖》（流媒体网，2026-11-05）  https://news.google.com/rss/articles/CBMia0FVX3lxTE5JUEFhc0ZEMm5ueEpfaS1PYXR4QzlWS1VWODI4Y1pkRFpjblhUcDF4b1dWTldPWVZIMlRVVm5jek1penVMNkVEc1JPNWZ1ZjJPYnRwYTIyTm1FQ3B5emxmUjVOWHhrWWJzcFI0?oc=5
+
+## 2026-11-07
+
+- [素材级] 《新疆交河故城探索科技赋能遗址保护新路径》（旅日侨网，2026-11-06）  https://news.google.com/rss/articles/CBMiigFBVV95cUxPVXZXMkhlaFpBNU12UWtrZDcxbXNHejg5T0dPdEw2Q3VkdVppdlNEYjd0RmdvdlFHV205V2hXLWhtdF85MGxFakp1Zk5ma3JyQlBsUVVLbE9pZEFhbVN6LWplY08xWVZ6RUR0Y2lXWjN0S21lWThxN2p1VFpYWW1VTVRJcTR1bUUtVXc?oc=5
