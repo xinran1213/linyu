@@ -31,3 +31,7 @@
 ## 2026-11-07
 
 - [素材级] 《新疆交河故城探索科技赋能遗址保护新路径》（旅日侨网，2026-11-06）  https://news.google.com/rss/articles/CBMiigFBVV95cUxPVXZXMkhlaFpBNU12UWtrZDcxbXNHejg5T0dPdEw2Q3VkdVppdlNEYjd0RmdvdlFHV205V2hXLWhtdF85MGxFakp1Zk5ma3JyQlBsUVVLbE9pZEFhbVN6LWplY08xWVZ6RUR0Y2lXWjN0S21lWThxN2p1VFpYWW1VTVRJcTR1bUUtVXc?oc=5
+
+## 2026-11-08
+
+- [素材级] 《北京地区文物修复领域“首都工匠学院”正式成立》（京报网，2026-11-07）  https://news.google.com/rss/articles/CBMiXkFVX3lxTFBhMFdxcjloVUlPV0Nvd1RhWWlULVJJcDBoOEdweEJNSk5iQzlDdFpRbW9ieHZ1TjNleUpmYTE5b2NyNHBzSVJWREJyRlVReGV4OVFiMUpsaVN2Z1B5dFE?oc=5
