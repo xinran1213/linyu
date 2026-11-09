@@ -35,3 +35,7 @@
 ## 2026-11-08
 
 - [素材级] 《北京地区文物修复领域“首都工匠学院”正式成立》（京报网，2026-11-07）  https://news.google.com/rss/articles/CBMiXkFVX3lxTFBhMFdxcjloVUlPV0Nvd1RhWWlULVJJcDBoOEdweEJNSk5iQzlDdFpRbW9ieHZ1TjNleUpmYTE5b2NyNHBzSVJWREJyRlVReGV4OVFiMUpsaVN2Z1B5dFE?oc=5
+
+## 2026-11-09
+
+- （今日无符合条件的新条目）
