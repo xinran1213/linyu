@@ -43,3 +43,7 @@
 ## 2026-11-10
 
 - （今日无符合条件的新条目）
+
+## 2026-11-11
+
+- [素材级] 《墨西哥亚克斯科波伊尔联合考古发掘开工》（手机新浪网，2026-11-11）  https://news.google.com/rss/articles/CBMifkFVX3lxTE1KZ2ZubHduV0N2aTJGTXE1VUtNdndaYzFYbmxRRDY3Q1JxcjJuR0JCSVMwaU81emtCcHJZekFxM1RUMkNCaGctMmZTam1ENmE3UzY0TzhER3htWTh0YWQ0aGVQZjZnQVltV3JMRkhLSWtBTFRBT1FNX05kMS1Cdw?oc=5
