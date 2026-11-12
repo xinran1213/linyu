@@ -47,3 +47,8 @@
 ## 2026-11-11
 
 - [素材级] 《墨西哥亚克斯科波伊尔联合考古发掘开工》（手机新浪网，2026-11-11）  https://news.google.com/rss/articles/CBMifkFVX3lxTE1KZ2ZubHduV0N2aTJGTXE1VUtNdndaYzFYbmxRRDY3Q1JxcjJuR0JCSVMwaU81emtCcHJZekFxM1RUMkNCaGctMmZTam1ENmE3UzY0TzhER3htWTh0YWQ0aGVQZjZnQVltV3JMRkhLSWtBTFRBT1FNX05kMS1Cdw?oc=5
+
+## 2026-11-12
+
+- [素材级] 《金城海关护航文物通关 甘肃省博物馆再迎青铜特展》（每日甘肃网，2026-11-12）  https://news.google.com/rss/articles/CBMic0FVX3lxTFBSWENFZTJQNFdmUi1naXF5NG5BcUU3WGw3VTlpM0stVmIxYjBzbXJXdHZmNkdvZnFPQkVHNExEMlU3bUJRUkl2aUtnclhfc2l2ZW1aVEt0cDJHeHdYemlHOFFDTklTczNPellBbUlPSV9ybHc?oc=5
+- [素材级] 《北京地区文物修复领域“首都工匠学院”正式成立》（北京市人民政府门户网站，2026-11-09）  https://news.google.com/rss/articles/CBMif0FVX3lxTFA1STB0akljYi00eWp6WGpPV2xSV3hTUVIzRlRVVjFMNl9tU01BVUFDS0pOTEMzeERuX29hZi16bHFBeUlITXhHQ1V5NWppdVF5QUVDWWNyVEtWUk84SmNKNlQ1ZkVEbVQ5bExIUVZjNUJTdXZ3REtZWURoWDRMQmc?oc=5
