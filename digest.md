@@ -52,3 +52,7 @@
 
 - [素材级] 《金城海关护航文物通关 甘肃省博物馆再迎青铜特展》（每日甘肃网，2026-11-12）  https://news.google.com/rss/articles/CBMic0FVX3lxTFBSWENFZTJQNFdmUi1naXF5NG5BcUU3WGw3VTlpM0stVmIxYjBzbXJXdHZmNkdvZnFPQkVHNExEMlU3bUJRUkl2aUtnclhfc2l2ZW1aVEt0cDJHeHdYemlHOFFDTklTczNPellBbUlPSV9ybHc?oc=5
 - [素材级] 《北京地区文物修复领域“首都工匠学院”正式成立》（北京市人民政府门户网站，2026-11-09）  https://news.google.com/rss/articles/CBMif0FVX3lxTFA1STB0akljYi00eWp6WGpPV2xSV3hTUVIzRlRVVjFMNl9tU01BVUFDS0pOTEMzeERuX29hZi16bHFBeUlITXhHQ1V5NWppdVF5QUVDWWNyVEtWUk84SmNKNlQ1ZkVEbVQ5bExIUVZjNUJTdXZ3REtZWURoWDRMQmc?oc=5
+
+## 2026-11-13
+
+- [素材级] 《何以中国·理想都城｜文物修复怎么做？一起走进乐石文物修复中心》（京报网，2026-11-12）  https://news.google.com/rss/articles/CBMickFVX3lxTE5jV2FQNE1OZFQ0YUNXTmpUcHljaHF5OUZuOTZwV1R0YnBTdFhqa1RzWE9hZWMyX2RiZGtSTFI2SHJqRl84NzFXdURZa1RjcDdUcWh6WlgxSllwUkpKWXI0RG5ReFNrWTZlZGRyNFV0TXo1QQ?oc=5
