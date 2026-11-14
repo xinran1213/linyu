@@ -56,3 +56,7 @@
 ## 2026-11-13
 
 - [素材级] 《何以中国·理想都城｜文物修复怎么做？一起走进乐石文物修复中心》（京报网，2026-11-12）  https://news.google.com/rss/articles/CBMickFVX3lxTE5jV2FQNE1OZFQ0YUNXTmpUcHljaHF5OUZuOTZwV1R0YnBTdFhqa1RzWE9hZWMyX2RiZGtSTFI2SHJqRl84NzFXdURZa1RjcDdUcWh6WlgxSllwUkpKWXI0RG5ReFNrWTZlZGRyNFV0TXo1QQ?oc=5
+
+## 2026-11-14
+
+- [素材级·她的近况] 《2027年全国硕士研究生招生考试报名人数347万》（新华网，2026-11-13）  https://news.google.com/rss/articles/CBMid0FVX3lxTE9lcHJjUU4zXzJXTl83ODYzSGdWWlN4MGZ5eFZJVGpNRW1vTVRQZHYyQzVLaENhdWtnbWdqN3UwX1c0X3BFVnlwYmdWVVpnd2xfREdXOHhqczgwWFRJdmU5SVYzVTZoMEk0dzFRNU9ubVRDREh2SHdZ?oc=5
