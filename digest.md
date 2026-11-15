@@ -60,3 +60,7 @@
 ## 2026-11-14
 
 - [素材级·她的近况] 《2027年全国硕士研究生招生考试报名人数347万》（新华网，2026-11-13）  https://news.google.com/rss/articles/CBMid0FVX3lxTE9lcHJjUU4zXzJXTl83ODYzSGdWWlN4MGZ5eFZJVGpNRW1vTVRQZHYyQzVLaENhdWtnbWdqN3UwX1c0X3BFVnlwYmdWVVpnd2xfREdXOHhqczgwWFRJdmU5SVYzVTZoMEk0dzFRNU9ubVRDREh2SHdZ?oc=5
+
+## 2026-11-15
+
+- [素材级·她的近况] 《2027年全国硕士研究生招生考试共347万人报名》（人民日报，2026-11-14）  https://news.google.com/rss/articles/CBMif0FVX3lxTE1NRTRxWlU5a0EzVkd4ZkpCNmxLaHA4b0duMXBIOGhpV3BKbHN1Z1BJTFdIT0F0dG9EVVpyRUhBbVBtdTJHY0dyaTh0clFiS3JQanFqbFRyb3prWnptX1RtWWNsTUY4S29BZUxxbG1NTUhCZWtLUGJJWU54R19sWm8?oc=5
