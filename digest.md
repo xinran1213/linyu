@@ -64,3 +64,8 @@
 ## 2026-11-15
 
 - [素材级·她的近况] 《2027年全国硕士研究生招生考试共347万人报名》（人民日报，2026-11-14）  https://news.google.com/rss/articles/CBMif0FVX3lxTE1NRTRxWlU5a0EzVkd4ZkpCNmxLaHA4b0duMXBIOGhpV3BKbHN1Z1BJTFdIT0F0dG9EVVpyRUhBbVBtdTJHY0dyaTh0clFiS3JQanFqbFRyb3prWnptX1RtWWNsTUY4S29BZUxxbG1NTUhCZWtLUGJJWU54R19sWm8?oc=5
+
+## 2026-11-16
+
+- [素材级] 《“含娃量”拉满，昆山戏曲百戏博物馆迎秋假研学热潮》（紫牛新闻，2026-11-15）  https://news.google.com/rss/articles/CBMiaEFVX3lxTE02a05Ld25YLW5OQWxBX25PckFyTmNiVGE0VzUtcXQ1R1VUbzNmMkFBMm1hMVlOWlJ6N1gxUlNkUXpndExseFVnMkFveHBYeUd6VGJoVDVTWHlzTkpwZE9zUFR2UmtjRlpu?oc=5
+- [素材级] 《秋假研学上新！跟着博物馆游山西，在文物里读懂三晋文脉》（凤凰网，2026-11-13）  https://news.google.com/rss/articles/CBMiTEFVX3lxTE1IdzcxeTB3eHpvWXFISDFjZGZtRENpSmhSMDd1RVZXdkJ1X1RjcFhFbU05eWM1X1dNdDNHSmN0OUdqaGNxUjNUNTlsakw?oc=5
