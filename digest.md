@@ -77,3 +77,9 @@
 ## 2026-11-18
 
 - [素材级] 《大都会艺术博物馆珠宝艺术珍品与中国古代珠宝文物对话》（上观新闻，2026-11-17）  https://news.google.com/rss/articles/CBMiXkFVX3lxTE05dEhfUm5fcV9MeEZNRnUycGloLXdhZTNQei15NGpEQ3J6d3UyY1lHdjMzSmhHSlI1NUYxcENvSHh3aWExcVhPYjZTYWFtUVY3aFlUZ1A2SFhka0hEa0E?oc=5
+
+## 2026-11-19
+
+- [素材级] 《妇好墓发掘研究50周年特展在出土地安阳殷墟博物馆开放》（新湖南，2026-11-19）  https://news.google.com/rss/articles/CBMiX0FVX3lxTE1aQms5bmRLUEFQZ3JYLWdiWWo2OVh5eHFHQ3JtZTBtNTlLZnVBZ1d5VHNnYnJUWU5JcVhTX24yTzNFMlNkMHQ1X0h0cDNBenIwRlZaR3Rhc1lDNEVpMnVB?oc=5
+- [素材级] 《穿越三千年，感受古埃及——“尼罗河畔三千年古埃及文明特展”在台州市博物馆开幕》（台州新闻，2026-11-18）  https://news.google.com/rss/articles/CBMia0FVX3lxTE5BNU5odHVHNC1RSEVpdzhINXJzazhXSDMySHFwM1ZwcWFlR1otSzhETmlOeTM2aGs0QkJPdzhMdWdEbW9aLVdXdWJrU0J5UmNjSnN1aTctVG12dDZ6RVFtZHh2R0FmbGZxTUhj?oc=5
+- [素材级] 《从冰箱贴到彩绘飞机，博物馆的想象力不至于“下一个”爆款》（上观新闻，2026-11-19）  https://news.google.com/rss/articles/CBMiXEFVX3lxTE9zdlRUeTBZYnRDLUgtbXJrZER1MUhYVThxSzNiVzdwdVBGYnlSSUxlR3VKUFdlaEQwdEhBV1ZwVk9ja3VnU1RhbUpLSjFFMUg0TzVlOFBIME9sWlQz?oc=5
