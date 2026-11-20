@@ -83,3 +83,7 @@
 - [素材级] 《妇好墓发掘研究50周年特展在出土地安阳殷墟博物馆开放》（新湖南，2026-11-19）  https://news.google.com/rss/articles/CBMiX0FVX3lxTE1aQms5bmRLUEFQZ3JYLWdiWWo2OVh5eHFHQ3JtZTBtNTlLZnVBZ1d5VHNnYnJUWU5JcVhTX24yTzNFMlNkMHQ1X0h0cDNBenIwRlZaR3Rhc1lDNEVpMnVB?oc=5
 - [素材级] 《穿越三千年，感受古埃及——“尼罗河畔三千年古埃及文明特展”在台州市博物馆开幕》（台州新闻，2026-11-18）  https://news.google.com/rss/articles/CBMia0FVX3lxTE5BNU5odHVHNC1RSEVpdzhINXJzazhXSDMySHFwM1ZwcWFlR1otSzhETmlOeTM2aGs0QkJPdzhMdWdEbW9aLVdXdWJrU0J5UmNjSnN1aTctVG12dDZ6RVFtZHh2R0FmbGZxTUhj?oc=5
 - [素材级] 《从冰箱贴到彩绘飞机，博物馆的想象力不至于“下一个”爆款》（上观新闻，2026-11-19）  https://news.google.com/rss/articles/CBMiXEFVX3lxTE9zdlRUeTBZYnRDLUgtbXJrZER1MUhYVThxSzNiVzdwdVBGYnlSSUxlR3VKUFdlaEQwdEhBV1ZwVk9ja3VnU1RhbUpLSjFFMUg0TzVlOFBIME9sWlQz?oc=5
+
+## 2026-11-20
+
+- [素材级] 《一线文物修复队伍年龄断层，山东探索以赛选才育人》（凤凰网山东，2026-11-20）  https://news.google.com/rss/articles/CBMiSkFVX3lxTE85d0FQLThpVVRTY2U4NHpsZC1FbTVsblotSXo0OHhVR1ZxY00tUVlNM19VSTY2bV9rWjN4UjY0TDVGVXdSTVZJdUlR?oc=5
