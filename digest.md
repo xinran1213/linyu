@@ -87,3 +87,7 @@
 ## 2026-11-20
 
 - [素材级] 《一线文物修复队伍年龄断层，山东探索以赛选才育人》（凤凰网山东，2026-11-20）  https://news.google.com/rss/articles/CBMiSkFVX3lxTE85d0FQLThpVVRTY2U4NHpsZC1FbTVsblotSXo0OHhVR1ZxY00tUVlNM19VSTY2bV9rWjN4UjY0TDVGVXdSTVZJdUlR?oc=5
+
+## 2026-11-21
+
+- （今日无符合条件的新条目）
