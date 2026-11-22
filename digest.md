@@ -91,3 +91,7 @@
 ## 2026-11-21
 
 - （今日无符合条件的新条目）
+
+## 2026-11-22
+
+- [素材级] 《一殿藏御珍 一器寄嘉愿 盐城市博物馆两大特展联袂启幕共赴岁末文脉之约》（中华网，2026-11-21）  https://news.google.com/rss/articles/CBMibkFVX3lxTE5RM0RpaUtHTXlIVXM3STgxX29sUVNvQmRMX3FzdWd5VkRaMWNNRkR4bmozX193dXhEbGhjVS1ITElKX0M3VldIdXJZZHRrbExaV180dnB0YXdDMGVRWVZHbGN1YjZ0ckJhZGxrT3Nn?oc=5
