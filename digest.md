@@ -99,3 +99,7 @@
 ## 2026-11-23
 
 - [素材级] 《需时处理文物 砂博物馆料明年重开》（诗华日报，2026-11-20）  https://news.google.com/rss/articles/CBMiTkFVX3lxTE9QeXdJUEF6ck9VZ3VhOVY3TkdsVHpwcjJUa1ZIaDVQNXcxV2VRMTFxd2JOYjg5QmpuUlVpX3czMXNaWklwdnZtcUpMcjFRdw?oc=5
+
+## 2026-11-24
+
+- [素材级] 《意大利举办中国古代艺术文物特展》（新华网，2026-11-24）  https://news.google.com/rss/articles/CBMiggFBVV95cUxPcTVlNWExUlowQTFrZEYxQy1nWnNyVm40TmNhVEpIZWwzZ0h2Vm42cndFdzBLOFFyZThhb2Q3amdBNk9wTG45d09pSlhoUFh6WUJoc2htdlFUMnRPQS0xWVR3ZXRGV1ZCamY2ZnpJSlZpTzJLUHhWTU9KcDQ3N04ycVl3?oc=5
