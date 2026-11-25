@@ -103,3 +103,9 @@
 ## 2026-11-24
 
 - [素材级] 《意大利举办中国古代艺术文物特展》（新华网，2026-11-24）  https://news.google.com/rss/articles/CBMiggFBVV95cUxPcTVlNWExUlowQTFrZEYxQy1nWnNyVm40TmNhVEpIZWwzZ0h2Vm42cndFdzBLOFFyZThhb2Q3amdBNk9wTG45d09pSlhoUFh6WUJoc2htdlFUMnRPQS0xWVR3ZXRGV1ZCamY2ZnpJSlZpTzJLUHhWTU9KcDQ3N04ycVl3?oc=5
+
+## 2026-11-25
+
+- [负面大新闻] 《听泉说“宫里一件我一件”，南京博物院举报案后不敢笑了|南京博物院|徐湖平|郭礼典|听泉|故宫》（手机新浪网，2026-11-25）  https://news.google.com/rss/articles/CBMiY0FVX3lxTE9UeXBDM2VHb252NHFSZnJRc3RfbV9FUi1hV1p5SVRYODZzblFqSnhNS2lyTldTVHBURnZTSEFJMWdKYU9TRWxOMDlkcGwzaHFwTkxHaUhBdzdxQjUtdklBN1gxMA?oc=5
+- [素材级] 《“南京博物馆大道”亮相“水韵江苏”韩国文旅推介会》（紫牛新闻，2026-11-24）  https://news.google.com/rss/articles/CBMiekFVX3lxTE1mY0tvMUxhRFBvWm4yOG5TdkxmWTZxX2d0Q0ctdHVha2FfUVhaVUVNZmxVNW42alJaZDRiVHpMNlFXd0RhYkI3MFZvWXVZTU5JR3B5X1B0MHo2cXR2Z0wwWVhSMHQwcEhCemJiUlFLbEhjamgzS1U0ZE5n?oc=5
+- [素材级] 《意大利举办中国古代艺术文物特展--国际》（人民网，2026-11-25）  https://news.google.com/rss/articles/CBMibEFVX3lxTE1IQnJGVnpDY1ZjUlhGdV9UcmFXWnl2U3pkcXpJcjd4amdNTHdXRjJ1NUhnYXZ1Q2dlbU9tTHM5R0p6TTNaRmEwYW8wQUdRY3dzOXlSMDhoVUFtQUF4WTB1UHBCRE5DZlhucHlKRg?oc=5
