@@ -109,3 +109,9 @@
 - [负面大新闻] 《听泉说“宫里一件我一件”，南京博物院举报案后不敢笑了|南京博物院|徐湖平|郭礼典|听泉|故宫》（手机新浪网，2026-11-25）  https://news.google.com/rss/articles/CBMiY0FVX3lxTE9UeXBDM2VHb252NHFSZnJRc3RfbV9FUi1hV1p5SVRYODZzblFqSnhNS2lyTldTVHBURnZTSEFJMWdKYU9TRWxOMDlkcGwzaHFwTkxHaUhBdzdxQjUtdklBN1gxMA?oc=5
 - [素材级] 《“南京博物馆大道”亮相“水韵江苏”韩国文旅推介会》（紫牛新闻，2026-11-24）  https://news.google.com/rss/articles/CBMiekFVX3lxTE1mY0tvMUxhRFBvWm4yOG5TdkxmWTZxX2d0Q0ctdHVha2FfUVhaVUVNZmxVNW42alJaZDRiVHpMNlFXd0RhYkI3MFZvWXVZTU5JR3B5X1B0MHo2cXR2Z0wwWVhSMHQwcEhCemJiUlFLbEhjamgzS1U0ZE5n?oc=5
 - [素材级] 《意大利举办中国古代艺术文物特展--国际》（人民网，2026-11-25）  https://news.google.com/rss/articles/CBMibEFVX3lxTE1IQnJGVnpDY1ZjUlhGdV9UcmFXWnl2U3pkcXpJcjd4amdNTHdXRjJ1NUhnYXZ1Q2dlbU9tTHM5R0p6TTNaRmEwYW8wQUdRY3dzOXlSMDhoVUFtQUF4WTB1UHBCRE5DZlhucHlKRg?oc=5
+
+## 2026-11-26
+
+- [素材级] 《清冷文物修复师遇上卧底缉毒警，这段宿命感故事今日开播|金晨|黄轩|优酷|不为人知的故事_新浪新闻》（手机新浪网，2026-11-26）  https://news.google.com/rss/articles/CBMiY0FVX3lxTE5NZmQ2N3pHOGxkZzFING82Q3paVHlfMVNCNDBSaDltQ21UZjE0azlROHJjRlJNS1JCM3dpT1JDaUpDeVhYVExlRzNHOW00X296SkZ5dks3bkVlZmx5MkhxVGZHOA?oc=5
+- [素材级] 《玄武区文旅名片“南京博物馆大道”尽显金陵文博风采》（中国新闻网，2026-11-25）  https://news.google.com/rss/articles/CBMiakFVX3lxTE1SMFh4NkpqLVllWFhTX1o3TWhMNnU3TkYwWE94NGh3RGltVHc5S2ZzQ1R2TzlQblEyZEVaTTdTd0R1Y1dKUUM0Vk1RRjljajJGTVN3WUs1UUtsRGpTX1NfZFpfUGpxcTVKVkE?oc=5
+- [素材级] 《大英博物馆名瓷受损，人民日报评论：坠落的青花，击碎文物“庇护者”神话》（上观新闻，2026-11-26）  https://news.google.com/rss/articles/CBMiWkFVX3lxTE1aVFVZSGc5NGJwY1ZpdVJGWER5MHliT3UyNGRvb3JhZzlidWZDWk1Jblhvb3pLOFgzSU4ybHJlcExteTh5RDRhSVlVcXYwZ2pTZTJCOWM1WGNzZw?oc=5
