@@ -115,3 +115,8 @@
 - [素材级] 《清冷文物修复师遇上卧底缉毒警，这段宿命感故事今日开播|金晨|黄轩|优酷|不为人知的故事_新浪新闻》（手机新浪网，2026-11-26）  https://news.google.com/rss/articles/CBMiY0FVX3lxTE5NZmQ2N3pHOGxkZzFING82Q3paVHlfMVNCNDBSaDltQ21UZjE0azlROHJjRlJNS1JCM3dpT1JDaUpDeVhYVExlRzNHOW00X296SkZ5dks3bkVlZmx5MkhxVGZHOA?oc=5
 - [素材级] 《玄武区文旅名片“南京博物馆大道”尽显金陵文博风采》（中国新闻网，2026-11-25）  https://news.google.com/rss/articles/CBMiakFVX3lxTE1SMFh4NkpqLVllWFhTX1o3TWhMNnU3TkYwWE94NGh3RGltVHc5S2ZzQ1R2TzlQblEyZEVaTTdTd0R1Y1dKUUM0Vk1RRjljajJGTVN3WUs1UUtsRGpTX1NfZFpfUGpxcTVKVkE?oc=5
 - [素材级] 《大英博物馆名瓷受损，人民日报评论：坠落的青花，击碎文物“庇护者”神话》（上观新闻，2026-11-26）  https://news.google.com/rss/articles/CBMiWkFVX3lxTE1aVFVZSGc5NGJwY1ZpdVJGWER5MHliT3UyNGRvb3JhZzlidWZDWk1Jblhvb3pLOFgzSU4ybHJlcExteTh5RDRhSVlVcXYwZ2pTZTJCOWM1WGNzZw?oc=5
+
+## 2026-11-27
+
+- [素材级] 《AI跨越千年“拼”回散落的青铜文物 三星堆博物馆馆长颜劲松：科技让沉睡的文物“活”起来》（手机新浪网，2026-11-26）  https://news.google.com/rss/articles/CBMijgFBVV95cUxQTVNDOEtTRlA0LUh2R1ZUVnVVSU1TYTdWZ2NFa0E3MHdkTDVrbG5sX1l6cVVVWGp1d05tRzZCa0FwVzF6Wlp0b1UzT3cyanNWXzNicTRhVHBSN3V4MXRXRFJZQlBReGZmOTB5LTlqdklQOWJpT1hRajNuS1FieUk3QldLOTVpcTVTSlpaVThR?oc=5
+- [素材级] 《文物修复师穿成修仙大佬，被魔尊和另一位大佬夹在中间宠|砚瑾|修仙_新浪新闻》（手机新浪网，2026-11-26）  https://news.google.com/rss/articles/CBMiY0FVX3lxTE9FY3RXNTZ2MWNZcFJlTXFEbkJpRVJxVDctWWM1UEp1Nk1HTFRmclJqemQzdnljZGtEWTBROW9uMW40UEpKRjhaWkp4bE84MGFZam9mVERUSy00OEJwWWI3b04waw?oc=5
